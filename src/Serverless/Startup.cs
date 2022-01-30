@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Budgetly.Serverless;
 
-[assembly: FunctionsStartup(typeof(Startup))]
+// [assembly: FunctionsStartup(typeof(Startup))]
 public class Startup : FunctionsStartup
 {
     public override void Configure(IFunctionsHostBuilder builder)
