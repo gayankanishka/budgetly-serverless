@@ -27,7 +27,7 @@ public static class DependencyInjection
         
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-        services.AddTransient<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>() 
+        services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>() 
                                                               ?? throw new InvalidOperationException());
         services.AddScoped<IDomainEventService, DomainEventService>();
         

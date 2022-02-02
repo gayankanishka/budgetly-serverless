@@ -22,15 +22,9 @@ public class ArchivePreviousMonthBudgetsCommandHandler : IRequestHandler<Archive
             .Select(x => x.UserId)
             .ToListAsync(cancellationToken);
 
-        // IList<Task> taskList = userIds.Select(ArchiveBudgetByUserId).ToList();
-        //
-        // await Task.WhenAll(taskList);
-
-        foreach (var userId in userIds)
-        {
-            await ArchiveBudgetByUserId(userId);
-        }
-
+        IList<Task> taskList = userIds.Select(ArchiveBudgetByUserId).ToList();
+        await Task.WhenAll(taskList);
+        
         return Unit.Value;
     }
 
@@ -40,6 +34,7 @@ public class ArchivePreviousMonthBudgetsCommandHandler : IRequestHandler<Archive
         CancellationToken cancellationToken = new();
 
         budgetHistory.UserId = userId;
+        budgetHistory.Date = _dateTime.LastDayOfLastMonth;
 
         budgetHistory.ActualExpense = await _context.Budgets
             .Where(x => x.UserId == userId)
