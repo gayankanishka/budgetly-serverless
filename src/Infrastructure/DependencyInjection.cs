@@ -1,5 +1,8 @@
 using Budgetly.Application.Common.Interfaces;
+using Budgetly.Domain.Entities;
 using Budgetly.Infrastructure.Persistence;
+using Budgetly.Infrastructure.Persistence.Options;
+using Budgetly.Infrastructure.Persistence.Repositories;
 using Budgetly.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,8 +23,11 @@ public static class DependencyInjection
     /// <returns></returns>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var databaseOptions = configuration.GetSection(PersistenceOptions.Persistence)
+            .Get<PersistenceOptions>();
+        
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql("Host=kubernetes.docker.internal;Database=BudgetlyDb;Username=postgres;Password=1qaz2wsx@",
+            options.UseNpgsql(databaseOptions.PostgreSqlConnectionString,
                 a =>
                     a.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         
@@ -30,6 +36,9 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>() 
                                                               ?? throw new InvalidOperationException());
         services.AddScoped<IDomainEventService, DomainEventService>();
+        services.AddScoped<IBudgetRepository, BudgetRepository>();
+        services.AddScoped<IBudgetHistoryRepository, BudgetHistoryRepository>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
         
         services.AddTransient<IDateTimeService, DateTimeService>();
         
