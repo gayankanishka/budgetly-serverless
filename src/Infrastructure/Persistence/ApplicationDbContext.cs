@@ -3,7 +3,6 @@ using Budgetly.Application.Common.Interfaces;
 using Budgetly.Domain.Common;
 using Budgetly.Domain.Common.Interfaces;
 using Budgetly.Domain.Entities;
-using Budgetly.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Budgetly.Infrastructure.Persistence;
@@ -67,15 +66,6 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         
-        modelBuilder
-            .Entity<Transaction>()
-            .Property(_ => _.Type)
-            .HasConversion(
-                _ => _.ToString(),
-                _ => (TransactionTypes)Enum.Parse(typeof(TransactionTypes), _));
-        
-        modelBuilder.Entity<Transaction>().Ignore(e => e.DomainEvents);
-        modelBuilder.Entity<Budget>().Ignore(e => e.DomainEvents);
         base.OnModelCreating(modelBuilder);
     }
 
