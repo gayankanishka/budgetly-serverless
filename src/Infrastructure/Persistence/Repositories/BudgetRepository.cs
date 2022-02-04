@@ -49,6 +49,13 @@ internal sealed class BudgetRepository : IBudgetRepository
         return await GetAll()
             .AsNoTracking()
             .Select(x => x.UserId)
+            .Distinct()
             .ToListAsync(cancellationToken);
+    }
+    
+    public async Task UpdateAsync(Budget entity, CancellationToken cancellationToken)
+    {
+        _context.Budgets.Update(entity);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }

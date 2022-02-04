@@ -19,9 +19,4 @@
       <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Transactions\Commands" />
-      <Folder Include="Transactions\Queries" />
-    </ItemGroup>
-
 </Project>

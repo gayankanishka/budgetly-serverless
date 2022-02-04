@@ -8,8 +8,4 @@
         <RootNamespace>Budgetly.Domain</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Events" />
-    </ItemGroup>
-
 </Project>

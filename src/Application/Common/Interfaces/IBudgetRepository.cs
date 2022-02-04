@@ -9,4 +9,5 @@ public interface IBudgetRepository
     Task<double> GetActualExpenseByUserIdAsync(string userId, CancellationToken cancellationToken);
     Task RestBudgetByUserId(string userId, CancellationToken cancellationToken);
     Task<IEnumerable<string>> GetUserIds(CancellationToken cancellationToken);
+    Task UpdateAsync(Budget entity, CancellationToken cancellationToken);
 }
