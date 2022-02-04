@@ -31,10 +31,10 @@ public class DateTimeService : IDateTimeService
     /// <summary>
     ///     First day of previous month.
     /// </summary>
-    public DateTimeOffset FirstDayOfLastMonth => FirstDayOfCurrentMonth.AddMonths(-1);
+    public DateTimeOffset FirstDayOfPreviousMonth => FirstDayOfCurrentMonth.AddMonths(-1);
     
     /// <summary>
     ///     Last day of previous month.
     /// </summary>
-    public DateTimeOffset LastDayOfLastMonth =>  LastDayOfCurrentMonth.AddMonths(-1);
+    public DateTimeOffset LastDayOfPreviousMonth =>  LastDayOfCurrentMonth.AddMonths(-1);
 }

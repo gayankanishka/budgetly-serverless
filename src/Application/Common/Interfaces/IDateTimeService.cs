@@ -28,10 +28,10 @@ public interface IDateTimeService
     /// <summary>
     ///     First day of previous month.
     /// </summary>
-    public DateTimeOffset FirstDayOfLastMonth { get; }
+    public DateTimeOffset FirstDayOfPreviousMonth { get; }
     
     /// <summary>
     ///     Last day of previous month.
     /// </summary>
-    public DateTimeOffset LastDayOfLastMonth{ get; }
+    public DateTimeOffset LastDayOfPreviousMonth{ get; }
 }
