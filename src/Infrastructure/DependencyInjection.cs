@@ -1,7 +1,5 @@
 using Budgetly.Application.Common.Interfaces;
-using Budgetly.Domain.Entities;
 using Budgetly.Infrastructure.Persistence;
-using Budgetly.Infrastructure.Persistence.Options;
 using Budgetly.Infrastructure.Persistence.Repositories;
 using Budgetly.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -23,11 +21,10 @@ public static class DependencyInjection
     /// <returns></returns>
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        var databaseOptions = configuration.GetSection(PersistenceOptions.Persistence)
-            .Get<PersistenceOptions>();
+        var connectionString = configuration.GetSection("PostgreSqlConnectionString").Value;
         
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseNpgsql(databaseOptions.PostgreSqlConnectionString,
+            options.UseNpgsql(connectionString,
                 a =>
                     a.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
         

@@ -5,18 +5,16 @@ namespace Budgetly.Application.BudgetHistory.Commands.ArchivePreviousMonthBudget
 
 public class ArchivePreviousMonthBudgetsCommandHandler : IRequestHandler<ArchivePreviousMonthBudgetsCommand>
 {
-    private readonly IApplicationDbContext _context;
     private readonly IDateTimeService _dateTime;
     private readonly ITransactionRepository _transactionRepository;
     private readonly IBudgetRepository _budgetRepository;
     private readonly IBudgetHistoryRepository _budgetHistoryRepository;
 
-    public ArchivePreviousMonthBudgetsCommandHandler(IApplicationDbContext context, IDateTimeService dateTime,
+    public ArchivePreviousMonthBudgetsCommandHandler(IDateTimeService dateTime,
         IBudgetHistoryRepository budgetHistoryRepository,
         IBudgetRepository budgetRepository,
         ITransactionRepository transactionRepository)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
         _dateTime = dateTime ?? throw new ArgumentNullException(nameof(dateTime));
         _budgetHistoryRepository = budgetHistoryRepository ?? throw new ArgumentNullException(nameof(budgetHistoryRepository));
         _budgetRepository = budgetRepository ?? throw new ArgumentNullException(nameof(budgetRepository));
