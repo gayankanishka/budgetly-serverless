@@ -41,7 +41,6 @@ internal sealed class TransactionRepository : ITransactionRepository
 
     public async Task<IEnumerable<Transaction>> GetRecurringTransactions(string userId, CancellationToken cancellationToken)
     {
-        // TODO: find a way to do distinct here
         return await GetAll()
             .AsNoTracking()
             .Where(x => x.IsRecurring && x.UserId == userId)
@@ -51,6 +50,12 @@ internal sealed class TransactionRepository : ITransactionRepository
     public async Task AddAsync(Transaction entity, CancellationToken cancellationToken)
     {
         await _context.Transactions.AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task UpdateAsync(Transaction entity, CancellationToken cancellationToken)
+    {
+        _context.Transactions.Update(entity);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

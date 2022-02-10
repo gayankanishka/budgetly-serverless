@@ -47,6 +47,9 @@ public class GenerateRecurringTransactionsCommandHandler : IRequestHandler<Gener
                 BudgetId = recurringTransaction.BudgetId
             };
 
+            recurringTransaction.IsRecurring = false;
+            await _repository.UpdateAsync(recurringTransaction, cancellationToken);
+
             transaction.DomainEvents.Add(new TransactionCreatedEvent(transaction));
             await _repository.AddAsync(transaction, cancellationToken);
         }

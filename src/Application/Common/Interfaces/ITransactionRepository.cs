@@ -10,4 +10,5 @@ public interface ITransactionRepository
     Task<IEnumerable<string>> GetUserIds(CancellationToken cancellationToken);
     Task<IEnumerable<Transaction>> GetRecurringTransactions(string userId, CancellationToken cancellationToken);
     Task AddAsync(Transaction entity, CancellationToken cancellationToken);
+    Task UpdateAsync(Transaction entity, CancellationToken cancellationToken);
 }
