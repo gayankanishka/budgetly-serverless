@@ -19,7 +19,7 @@ public class GenerateRecurringTransactions
     }
 
     [FunctionName("GenerateRecurringTransactions")]
-    public async Task RunAsync([TimerTrigger("* * * * *")] TimerInfo myTimer,
+    public async Task RunAsync([TimerTrigger("30 1 * * *")] TimerInfo myTimer,
         CancellationToken cancellationToken)
     { 
         await _mediator.Send(new GenerateRecurringTransactionsCommand(), cancellationToken);

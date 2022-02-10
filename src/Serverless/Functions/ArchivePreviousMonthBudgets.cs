@@ -16,7 +16,7 @@ public class ArchivePreviousMonthBudgets
     }
 
     [FunctionName("ArchivePreviousMonthBudgets")]
-    public async Task Run([TimerTrigger("* * * * *")] TimerInfo myTimer, CancellationToken cancellationToken)
+    public async Task Run([TimerTrigger("0 1 * * *")] TimerInfo myTimer, CancellationToken cancellationToken)
     {
         await _mediator.Send(new ArchivePreviousMonthBudgetsCommand(), cancellationToken);
     }
